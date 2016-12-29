@@ -80,12 +80,12 @@ def encode[A](ls: List[A]): List[(Int, A)] ={
 encode(List(1,1,1,2,2))
 
 //11. modified encoding
-def encodeModified[A](ls: List[A]): List[Any] = {
+def encodeModified[A](ls: List[A]): List[A] = {
   encode(ls) map { t => if (t._1 == 1) t._2 else t }
 }
 
 //12. decode
-def decode(list:List[(Int, Any)]) = {
+def decode(list:List[(Int, A)]) = {
   list.flatMap {
     e => Range(0, e._1).map(iter => e._2)
 
@@ -96,34 +96,34 @@ def decode(list:List[(Int, Any)]) = {
 
 
 //13. duplicate
-def duplicate[Any](ls: List[Any]): List[Any] = {
+def duplicate[A](ls: List[A]): List[A] = {
   ls flatMap { e => List(e, e) }
 }
 
 //14 .split
-def split(count:Int, list:List[Any]) = {
+def split(count:Int, list:List[A]) = {
   list.splitAt(count)
 }
 //15. slice
-def slice(head:Int, tail:Int, list:List[Any]) = {
+def slice(head:Int, tail:Int, list:List[A]) = {
   list.drop(head).take(tail-head)
 }
 
 //16. duplicateN
-def duplicateN(n: Int, ls: List[Any]): List[Any] = {
+def duplicateN(n: Int, ls: List[A]): List[A] = {
   ls flatMap{ e => List.fill(n)(e) }
 }
 //duplicateN(2,List(1,2))
 
 //17.rotate
 
-def rotate(ncount:Int, ls:List[Any]) = {
+def rotate(ncount:Int, ls:List[A]) = {
   val rotated = if(ncount > 0)ls.splitAt(ncount) else ls.splitAt(ls.length+ncount)
   rotated._2 ++ rotated._1
 }
 
 //18. remove at
-def removeAt(pos:Int, list:List[Any]) = {
+def removeAt(pos:Int, list:List[A]) = {
   if(list.length == 0 || pos > list.length) (Nil, Nil)
   else{
     val element = list(pos)
@@ -134,13 +134,13 @@ def removeAt(pos:Int, list:List[Any]) = {
 }
 
 //19 drop the element
-def drop[Any](pos:Int, list:List[Any]) = {
+def drop[A](pos:Int, list:List[A]) = {
   list.zipWithIndex.filterNot(entry => (entry._2+1)%pos == 0).map(entry => entry._1)
 }
 
 //20.encode direct
 
-def encodeDirect[A](ls: List[Any]): List[(Int, Any)] = {
+def encodeDirect[A](ls: List[A]): List[(Int, A)] = {
   if (ls.isEmpty) Nil
   else {
     val (packed, next) = ls span {_ == ls.head}
